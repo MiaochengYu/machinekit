@@ -1342,7 +1342,7 @@ endif
 endif
 
 ifeq ($(BUILD_HOSTMOT2),yes)
-obj-$(CONFIG_HOSTMOT2) += hostmot2.o hm2_7i43.o hm2_7i90.o hm2_pci.o hm2_test.o
+obj-$(CONFIG_HOSTMOT2) += hostmot2.o hm2_7i43.o hm2_7i90.o hm2_spi.o hm2_pci.o hm2_test.o
 ifeq ($(BUILD_SYS),user-dso)
 obj-$(CONFIG_HOSTMOT2) += hm2_eth.o
 hm2_eth-objs  :=			  \
@@ -1374,6 +1374,10 @@ hostmot2-objs +=			  \
     $(MATHSTUB)
 hm2_7i90-objs :=			  \
     hal/drivers/mesa-hostmot2/hm2_7i90.o  \
+    hal/drivers/mesa-hostmot2/bitfile.o   \
+    $(MATHSTUB)
+hm2_spi-objs  :=                          \
+    hal/drivers/mesa-hostmot2/hm2_spi.o   \
     hal/drivers/mesa-hostmot2/bitfile.o   \
     $(MATHSTUB)
 hm2_7i43-objs :=			  \
@@ -1680,6 +1684,7 @@ ifeq ($(USERMODE_PCI),yes)
 $(RTLIBDIR)/hostmot2$(MODULE_EXT): $(addprefix $(OBJDIR)/,$(hostmot2-objs))
 $(RTLIBDIR)/hm2_7i43$(MODULE_EXT): $(addprefix $(OBJDIR)/,$(hm2_7i43-objs))
 $(RTLIBDIR)/hm2_7i90$(MODULE_EXT): $(addprefix $(OBJDIR)/,$(hm2_7i90-objs))
+$(RTLIBDIR)/hm2_spi$(MODULE_EXT): $(addprefix $(OBJDIR)/,$(hm2_spi-objs))
 $(RTLIBDIR)/hm2_pci$(MODULE_EXT): $(addprefix $(OBJDIR)/,$(hm2_pci-objs))
 ifeq ($(BUILD_SYS),user-dso)
 $(RTLIBDIR)/hm2_eth$(MODULE_EXT): $(addprefix $(OBJDIR)/,$(hm2_eth-objs))

@@ -261,7 +261,11 @@ static int do_module_args(void *module,
             int a, b;
             char item_type_char;
             int r = sscanf(item_type_string.c_str(), "%d-%d%c",
-			   &a, &b, &item_type_char);
+		   &a, &b, &item_type_char);
+            if(r != 3) {
+                r = sscanf(item_type_string.c_str(), "%d-(%d)%c",
+                   &a, &b, &item_type_char);
+            }
             if(r != 3) {
 		note_printf(pbreply,
 			    "Unknown parameter `%s'"
